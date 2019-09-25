@@ -1,0 +1,21 @@
+---
+version: "2.2"
+
+services:
+
+  hadoop:
+    image: harisekhon/hadoop
+    volumes:
+      - ./scripts/:/app/scripts
+
+  nifi:
+    image: nick/nifi:latest
+    depends_on:
+      - hadoop
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    volumes:
+      - ./scripts/:/app/scripts
+      - ./conf/:/app/conf
+      - ./templates/:/app/templates
